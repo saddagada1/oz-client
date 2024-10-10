@@ -1,60 +1,92 @@
-import { Text, type TextProps, StyleSheet } from 'react-native';
-
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { useThemeColors } from "@/lib/hooks";
+import { Text, type TextProps, StyleSheet } from "react-native";
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?:
+    | "normal"
+    | "normalFat"
+    | "xxl"
+    | "xxlFat"
+    | "xl"
+    | "xlFat"
+    | "l"
+    | "lFat"
+    | "m"
+    | "mFat"
+    | "s"
+    | "sFat"
+    | "xs"
+    | "xsFat";
 };
 
 export function ThemedText({
   style,
   lightColor,
   darkColor,
-  type = 'default',
+  type = "normal",
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const colors = useThemeColors({ light: lightColor, dark: darkColor });
 
-  return (
-    <Text
-      style={[
-        { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
-        style,
-      ]}
-      {...rest}
-    />
-  );
+  const color = typeof colors !== "string" ? colors.foreground : colors;
+
+  return <Text style={[{ color }, styles.default, styles[type], style]} {...rest} />;
 }
 
 const styles = StyleSheet.create({
   default: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontFamily: "SpaceMono",
+    textTransform: "uppercase",
   },
-  defaultSemiBold: {
+  normal: {
     fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
   },
-  title: {
+  normalFat: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  xxl: {
     fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
   },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  xxlFat: {
+    fontSize: 32,
+    fontWeight: "500",
   },
-  link: {
-    lineHeight: 30,
-    fontSize: 16,
-    color: '#0a7ea4',
+  xl: {
+    fontSize: 24,
+  },
+  xlFat: {
+    fontSize: 24,
+    fontWeight: "500",
+  },
+  l: {
+    fontSize: 18,
+  },
+  lFat: {
+    fontSize: 18,
+    fontWeight: "500",
+  },
+  m: {
+    fontSize: 14,
+  },
+  mFat: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  s: {
+    fontSize: 12,
+  },
+  sFat: {
+    fontSize: 12,
+    fontWeight: "500",
+  },
+  xs: {
+    fontSize: 10,
+  },
+  xsFat: {
+    fontSize: 10,
+    fontWeight: "500",
   },
 });
