@@ -1,10 +1,16 @@
 import axios, { type AxiosError, type AxiosResponse } from "axios";
-import { Credentials, LoginRequest, SignupRequest, type QueuedRequest } from "./types";
+import {
+  Credentials,
+  EbaySearchResults,
+  LoginRequest,
+  SignupRequest,
+  type QueuedRequest,
+} from "./types";
 import { store } from "./redux/store";
 import { handleApiError, isTokenExpired } from "./utils";
 import { router } from "expo-router";
 import { setAuthState } from "./redux/slices/auth";
-import { deleteCredentials } from "./secureStorage";
+import { deleteCredentials, setCredentials } from "./secureStorage";
 
 export const client = axios.create({
   baseURL: process.env.EXPO_PUBLIC_SERVER_URL,
@@ -66,6 +72,7 @@ client.interceptors.request.use(
         const response = await refreshToken(auth.credentials.refreshToken);
         console.log("refreshed auth");
         const credentials = response.data;
+        await setCredentials(credentials);
         store.dispatch(
           setAuthState({
             status: "authenticated",
@@ -137,6 +144,7 @@ client.interceptors.response.use(
           const response = await refreshToken(auth.credentials.refreshToken);
           console.log("refreshed auth");
           const credentials = response.data;
+          await setCredentials(credentials);
           store.dispatch(
             setAuthState({
               status: "authenticated",
@@ -182,13 +190,6 @@ export const login = (loginRequest: LoginRequest) => {
   });
 };
 
-export const validate = () => {
-  return client<{ status: string }>({
-    url: `/validate`,
-    method: "GET",
-  });
-};
-
 export const refreshToken = (token: string) => {
   return client<Credentials>({
     url: `/auth/refresh`,
@@ -199,10 +200,18 @@ export const refreshToken = (token: string) => {
   });
 };
 
-export const searchByImage = (image: string) => {
-  return client<{}>({
+export const searchByImage = ({
+  accessToken,
+  refreshToken,
+  image,
+}: {
+  accessToken?: string;
+  refreshToken?: string;
+  image: string;
+}) => {
+  return client<EbaySearchResults>({
     url: `/searchByImage`,
     method: "POST",
-    data: { image },
+    data: { accessToken, refreshToken, image },
   });
 };

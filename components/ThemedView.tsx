@@ -7,6 +7,7 @@ export type ThemedViewProps = ViewProps & {
   lightColor?: string;
   darkColor?: string;
   statusBarPadding?: boolean;
+  navbarPadding?: boolean;
   horizontalPadding?: boolean;
   noBackgroundColor?: boolean;
 };
@@ -16,6 +17,7 @@ export function ThemedView({
   lightColor,
   darkColor,
   statusBarPadding,
+  navbarPadding,
   horizontalPadding,
   noBackgroundColor,
   ...otherProps
@@ -29,9 +31,15 @@ export function ThemedView({
     : undefined;
 
   const paddingTop = statusBarPadding ? Constants.statusBarHeight + defaultSpacing : undefined;
+  const paddingBottom = navbarPadding
+    ? Constants.statusBarHeight * 2 + defaultSpacing * 2
+    : undefined;
   const paddingHorizontal = horizontalPadding ? defaultSpacing : undefined;
 
   return (
-    <View style={[{ backgroundColor, paddingTop, paddingHorizontal }, style]} {...otherProps} />
+    <View
+      style={[{ backgroundColor, paddingTop, paddingBottom, paddingHorizontal }, style]}
+      {...otherProps}
+    />
   );
 }

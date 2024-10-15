@@ -113,7 +113,7 @@ const LoginForm: React.FC = () => {
         )}
         name="password"
       />
-      <Link style={{ marginBottom: defaultSpacing }} href="/forgot-password">
+      <Link style={{ marginBottom: defaultSpacing }} href="/signup">
         <ThemedText
           type="xs"
           style={[

@@ -1,9 +1,8 @@
-import { defaultSpacing } from "@/lib/constants";
 import { useAppSelector, useThemeColors } from "@/lib/hooks";
-import { TextInput, StyleSheet, Pressable, type PressableProps } from "react-native";
+import { StyleSheet, Pressable, type PressableProps } from "react-native";
 import { ThemedText } from "./themedText";
 
-type ThemedButtonProps = PressableProps & {
+export type ThemedButtonProps = PressableProps & {
   lightColor?: string;
   darkColor?: string;
   lightTextColor?: string;
@@ -29,11 +28,7 @@ export function ThemedButton({
 
   return (
     <Pressable
-      style={[
-        styles.root,
-        { backgroundColor, borderColor: colors.accent, color: colors.black },
-        style as any,
-      ]}
+      style={[styles.root, { backgroundColor, borderColor: colors.accent }, style as any]}
       {...otherProps}
     >
       <ThemedText type="normalFat" style={{ color }}>

@@ -37,7 +37,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    console.log(response);
+    console.log("here", response);
     if (response?.type === "success") {
       const { code } = response.params;
       console.log(code);
