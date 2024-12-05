@@ -3,9 +3,9 @@ import { View, StyleSheet } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ThemedText } from "../themedText";
-import { ThemedInput } from "../themedInput";
-import { ThemedButton } from "../themedButton";
+import { ThemedText } from "../ui/text";
+import { ThemedInput } from "../ui/input";
+import { ThemedButton } from "../ui/button";
 import { defaultSpacing } from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Link, useRouter } from "expo-router";
@@ -136,10 +136,8 @@ const LoginForm: React.FC = () => {
       </View>
       <ThemedButton
         title="Continue With Google"
-        lightColor={colors.accent + "80"}
-        darkColor={colors.accent + "80"}
-        lightTextColor={colors.black}
-        darkTextColor={colors.black}
+        style={{ backgroundColor: colors.accent + "80" }}
+        textStyle={{ color: colors.black }}
       />
     </View>
   );

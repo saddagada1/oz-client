@@ -1,8 +1,8 @@
 import { Tabs } from "expo-router";
-import { NavbarLink } from "@/components/navigation/navbarLink";
 import { ProfileIcon } from "@/components/navigation/profileIcon";
 import { useAppSelector } from "@/lib/hooks";
 import { defaultSpacing } from "@/lib/constants";
+import { NavbarIcon } from "@/components/navigation/navbarIcon";
 
 export default function Layout() {
   const { colors } = useAppSelector((store) => store.theme);
@@ -17,8 +17,11 @@ export default function Layout() {
           backgroundColor: "transparent",
           shadowColor: "transparent",
           borderTopWidth: 0,
-          paddingHorizontal: defaultSpacing,
-          marginBottom: defaultSpacing,
+          paddingLeft: defaultSpacing,
+        },
+        tabBarIconStyle: {
+          width: "100%",
+          height: "100%",
         },
         tabBarShowLabel: false,
         headerShown: false,
@@ -28,10 +31,7 @@ export default function Layout() {
         name="profile"
         options={{
           title: "",
-          tabBarIcon: ({ color, focused }) => <ProfileIcon color={color} focused={focused} />,
-          tabBarItemStyle: {
-            flex: 0.5,
-          },
+          tabBarIcon: ({ color }) => <ProfileIcon color={color} />,
         }}
       />
       <Tabs.Screen
@@ -39,35 +39,28 @@ export default function Layout() {
         options={{
           title: "",
           tabBarIcon: ({ color, focused }) => (
-            <NavbarLink name="vision" color={focused ? colors.white : color} focused={focused} />
+            <NavbarIcon name="vision" color={focused ? colors.white : color} />
           ),
-          tabBarItemStyle: {
-            flex: 1,
-          },
         }}
       />
       <Tabs.Screen
         name="sell"
         options={{
           title: "",
-          tabBarIcon: ({ color, focused }) => (
-            <NavbarLink separator name="sell" color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <NavbarIcon
+              name="sell"
+              color={color}
+              style={{ borderLeftWidth: 1, borderRightWidth: 1, borderColor: colors.accent }}
+            />
           ),
-          tabBarItemStyle: {
-            flex: 0.7,
-          },
         }}
       />
       <Tabs.Screen
         name="shop"
         options={{
           title: "",
-          tabBarIcon: ({ color, focused }) => (
-            <NavbarLink last separator name="shop" color={color} focused={focused} />
-          ),
-          tabBarItemStyle: {
-            flex: 0.5,
-          },
+          tabBarIcon: ({ color }) => <NavbarIcon name="shop" color={color} />,
         }}
       />
     </Tabs>

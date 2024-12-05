@@ -1,38 +1,32 @@
-import { useThemeColors } from "@/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 import { Text, type TextProps, StyleSheet } from "react-native";
 
+export type TextTypes =
+  | "normal"
+  | "normalFat"
+  | "xxl"
+  | "xxlFat"
+  | "xl"
+  | "xlFat"
+  | "l"
+  | "lFat"
+  | "m"
+  | "mFat"
+  | "s"
+  | "sFat"
+  | "xs"
+  | "xsFat";
+
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?:
-    | "normal"
-    | "normalFat"
-    | "xxl"
-    | "xxlFat"
-    | "xl"
-    | "xlFat"
-    | "l"
-    | "lFat"
-    | "m"
-    | "mFat"
-    | "s"
-    | "sFat"
-    | "xs"
-    | "xsFat";
+  type?: TextTypes;
 };
 
-export function ThemedText({
-  style,
-  lightColor,
-  darkColor,
-  type = "normal",
-  ...rest
-}: ThemedTextProps) {
-  const colors = useThemeColors({ light: lightColor, dark: darkColor });
+export function ThemedText({ style, type = "normal", ...rest }: ThemedTextProps) {
+  const { colors } = useAppSelector((store) => store.theme);
 
-  const color = typeof colors !== "string" ? colors.foreground : colors;
-
-  return <Text style={[{ color }, styles.default, styles[type], style]} {...rest} />;
+  return (
+    <Text style={[{ color: colors.foreground }, styles.default, styles[type], style]} {...rest} />
+  );
 }
 
 const styles = StyleSheet.create({

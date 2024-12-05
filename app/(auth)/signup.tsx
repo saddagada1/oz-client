@@ -1,6 +1,6 @@
 import SignupForm from "@/components/auth/signupForm";
-import { ThemedText } from "@/components/themedText";
-import { ThemedView } from "@/components/themedView";
+import { ThemedText } from "@/components/ui/text";
+import { ThemedView } from "@/components/ui/view";
 import { useAppSelector } from "@/lib/hooks";
 import { StyleSheet } from "react-native";
 
@@ -8,7 +8,7 @@ export default function Signup() {
   const { colors } = useAppSelector((store) => store.theme);
 
   return (
-    <ThemedView style={styles.root} statusBarPadding horizontalPadding>
+    <ThemedView style={styles.root} background statusBarPadding horizontalPadding>
       <ThemedText style={{ color: colors.accent }} type="mFat">
         Welcome to OZ
       </ThemedText>

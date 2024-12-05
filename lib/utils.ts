@@ -1,5 +1,8 @@
 import { AxiosError } from "axios";
 import { ApiError } from "./types";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -33,8 +36,24 @@ export const handleApiError = (error: unknown, options?: { fatal?: boolean }) =>
   }
 };
 
-export function isTokenExpired(token: string) {
+export const isTokenExpired = (token: string) => {
   const arrayToken = token.split(".");
   const tokenPayload = JSON.parse(atob(arrayToken[1]));
   return Math.floor(new Date().getTime() / 1000) >= tokenPayload?.exp - 300;
-}
+};
+
+export const getRelativeTime = (time: string | Date) => {
+  return dayjs(time).fromNow();
+};
+
+export const greeting = (): string => {
+  const hour = new Date().getHours();
+
+  if (hour < 12) {
+    return "good morning";
+  } else if (hour < 18) {
+    return "good afternoon";
+  } else {
+    return "good evening";
+  }
+};

@@ -1,5 +1,4 @@
-import { themes, themesRGBA } from "@/lib/constants";
-import { Theme, VisionHistoryItem } from "@/lib/types";
+import { VisionHistoryItem } from "@/lib/types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface VisionState {
@@ -21,6 +20,9 @@ const visionSlice = createSlice({
     setHistory(state, action: PayloadAction<VisionHistoryItem[]>) {
       state.history = action.payload;
     },
+    setResultIndex(state, action: PayloadAction<number>) {
+      state.history[state.selectedIndex].resultIndex = action.payload;
+    },
     setSelectedIndex(state, action: PayloadAction<number>) {
       state.selectedIndex = action.payload;
     },
@@ -30,6 +32,7 @@ const visionSlice = createSlice({
   },
 });
 
-export const { setHistory, setSelectedIndex, setIsSubmitting } = visionSlice.actions;
+export const { setHistory, setResultIndex, setSelectedIndex, setIsSubmitting } =
+  visionSlice.actions;
 
 export default visionSlice.reducer;

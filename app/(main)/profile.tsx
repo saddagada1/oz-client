@@ -1,5 +1,5 @@
-import { ThemedText } from "@/components/themedText";
-import { ThemedView } from "@/components/themedView";
+import { ThemedText } from "@/components/ui/text";
+import { ThemedView } from "@/components/ui/view";
 import { Pressable, StyleSheet } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
@@ -47,7 +47,7 @@ export default function Profile() {
   // console.log(request);
 
   return (
-    <ThemedView style={styles.root} statusBarPadding horizontalPadding>
+    <ThemedView style={styles.root} background statusBarPadding horizontalPadding>
       <Pressable
         onPress={() => {
           promptAsync();

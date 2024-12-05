@@ -1,14 +1,22 @@
-import { Image, View } from "react-native";
+import { Image, View, ViewProps } from "react-native";
 import { StyleSheet } from "react-native";
 
-interface Props {
+type ProfileIconProps = ViewProps & {
   color: string;
-  focused: boolean;
-}
+};
 
-export function ProfileIcon(props: Props) {
+export function ProfileIcon({ style, color, ...otherProps }: ProfileIconProps) {
   return (
-    <View style={[styles.root, { borderColor: props.color }]}>
+    <View
+      style={[
+        styles.root,
+        {
+          borderColor: color,
+        },
+        style,
+      ]}
+      {...otherProps}
+    >
       <Image source={require("@/assets/images/hendrix.jpg")} style={styles.img} />
     </View>
   );

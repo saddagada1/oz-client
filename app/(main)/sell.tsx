@@ -1,8 +1,8 @@
-import { ThemedView } from "@/components/themedView";
+import { ThemedView } from "@/components/ui/view";
 import { StyleSheet } from "react-native";
 
 export default function Sell() {
-  return <ThemedView style={styles.root}></ThemedView>;
+  return <ThemedView background style={styles.root}></ThemedView>;
 }
 
 const styles = StyleSheet.create({

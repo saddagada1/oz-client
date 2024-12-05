@@ -11,17 +11,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-// Hide annoying warnings
-const ignoreKeywords = "tf.nonMaxSuppression()";
-const warn = console.warn;
-console.warn = (...args) => {
-  const message = args[0];
-  if (message.includes(ignoreKeywords)) {
-    return;
-  }
-  warn(...args);
-};
-
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 0 } } });
 
 export default function RootLayout() {

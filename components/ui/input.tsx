@@ -1,31 +1,20 @@
 import { defaultSpacing } from "@/lib/constants";
-import { useAppSelector, useThemeColors } from "@/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 import { TextInput, type TextInputProps, StyleSheet } from "react-native";
 
 type ThemedInputProps = TextInputProps & {
-  lightColor?: string;
-  darkColor?: string;
   noMarginBottom?: boolean;
 };
 
-export function ThemedInput({
-  style,
-  lightColor,
-  darkColor,
-  noMarginBottom,
-  ...otherProps
-}: ThemedInputProps) {
+export function ThemedInput({ style, noMarginBottom, ...otherProps }: ThemedInputProps) {
   const { colors } = useAppSelector((store) => store.theme);
-  const customColors = useThemeColors({ light: lightColor, dark: darkColor });
-
-  const backgroundColor = typeof customColors !== "string" ? customColors.white : customColors;
 
   return (
     <TextInput
       style={[
         styles.root,
         {
-          backgroundColor,
+          backgroundColor: colors.white,
           borderColor: colors.accent,
           color: colors.black,
           marginBottom: noMarginBottom ? 0 : defaultSpacing,

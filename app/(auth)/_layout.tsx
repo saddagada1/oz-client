@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { NavbarLink } from "@/components/navigation/navbarLink";
+import { NavbarIcon } from "@/components/navigation/navbarIcon";
 import { useAppSelector } from "@/lib/hooks";
 import { defaultSpacing } from "@/lib/constants";
 
@@ -16,7 +16,10 @@ export default function Layout() {
           shadowColor: "transparent",
           borderTopWidth: 0,
           paddingHorizontal: defaultSpacing,
-          marginBottom: defaultSpacing,
+        },
+        tabBarIconStyle: {
+          width: "100%",
+          height: "100%",
         },
         tabBarShowLabel: false,
         headerShown: false,
@@ -26,9 +29,7 @@ export default function Layout() {
         name="login"
         options={{
           title: "",
-          tabBarIcon: ({ color, focused }) => (
-            <NavbarLink name="login" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color }) => <NavbarIcon name="login" color={color} />,
           tabBarItemStyle: {
             flex: 3,
           },
@@ -38,9 +39,7 @@ export default function Layout() {
         name="signup"
         options={{
           title: "",
-          tabBarIcon: ({ color, focused }) => (
-            <NavbarLink last separator name="signup" color={color} focused={focused} />
-          ),
+          tabBarIcon: ({ color }) => <NavbarIcon name="signup" color={color} />,
           tabBarItemStyle: {
             flex: 1,
           },

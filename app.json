@@ -7,6 +7,7 @@
     "icon": "./assets/images/icon.png",
     "scheme": "redhouse.studio.oz",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -42,7 +43,14 @@
           "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
           "enableMicrophonePermission": false
         }
-      ]
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "$(PRODUCT_NAME) needs access to your Photos."
+        }
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

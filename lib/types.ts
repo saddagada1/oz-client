@@ -43,6 +43,7 @@ export interface VisionHistoryItem {
   key: string;
   image: ImageResult;
   results: EbaySearchResults;
+  resultIndex: number;
 }
 
 //EBAY TYPES

@@ -1,44 +1,39 @@
 import { defaultSpacing } from "@/lib/constants";
-import { useThemeColors } from "@/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 import Constants from "expo-constants";
 import { View, type ViewProps } from "react-native";
 
 export type ThemedViewProps = ViewProps & {
-  lightColor?: string;
-  darkColor?: string;
   statusBarPadding?: boolean;
   navbarPadding?: boolean;
   horizontalPadding?: boolean;
-  noBackgroundColor?: boolean;
+  background?: boolean;
 };
 
 export function ThemedView({
   style,
-  lightColor,
-  darkColor,
   statusBarPadding,
   navbarPadding,
   horizontalPadding,
-  noBackgroundColor,
+  background,
   ...otherProps
 }: ThemedViewProps) {
-  const colors = useThemeColors({ light: lightColor, dark: darkColor });
-
-  const backgroundColor = !noBackgroundColor
-    ? typeof colors !== "string"
-      ? colors.background
-      : colors
-    : undefined;
-
+  const { colors } = useAppSelector((store) => store.theme);
   const paddingTop = statusBarPadding ? Constants.statusBarHeight + defaultSpacing : undefined;
-  const paddingBottom = navbarPadding
-    ? Constants.statusBarHeight * 2 + defaultSpacing * 2
-    : undefined;
+  const paddingBottom = navbarPadding ? Constants.statusBarHeight * 2 + defaultSpacing : undefined;
   const paddingHorizontal = horizontalPadding ? defaultSpacing : undefined;
 
   return (
     <View
-      style={[{ backgroundColor, paddingTop, paddingBottom, paddingHorizontal }, style]}
+      style={[
+        {
+          backgroundColor: background ? colors.background : "transparent",
+          paddingTop,
+          paddingBottom,
+          paddingHorizontal,
+        },
+        style,
+      ]}
       {...otherProps}
     />
   );
