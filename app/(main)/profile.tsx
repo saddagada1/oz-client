@@ -8,12 +8,14 @@ import { deleteCredentials } from "@/lib/secureStorage";
 import { useAppDispatch } from "@/lib/hooks";
 import { resetAuthState } from "@/lib/redux/slices/auth";
 import { useRouter } from "expo-router";
+import { useMutation } from "@tanstack/react-query";
+import { connectAccount } from "@/lib/axios";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const discovery = {
-  authorizationEndpoint: "https://auth.sandbox.ebay.com/oauth2/authorize",
-  tokenEndpoint: "https://api.sandbox.ebay.com/identity/v1/oauth2/token",
+  authorizationEndpoint: "https://auth.ebay.com/oauth2/authorize",
+  tokenEndpoint: "https://api.ebay.com/identity/v1/oauth2/token",
 };
 
 export default function Profile() {
@@ -22,13 +24,16 @@ export default function Profile() {
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: process.env.EXPO_PUBLIC_EBAY_CLIENT_ID!,
-      scopes: ["api_scope"],
+      scopes: ["https://api.ebay.com/oauth/api_scope"],
       usePKCE: false,
-      redirectUri: "Saivamsi_Addaga-Saivamsi-oz-SBX-ojvevnlaw",
+      redirectUri: "Saivamsi_Addaga-Saivamsi-oz-PRD-mxfrkdwi",
       responseType: "code",
     },
     discovery
   );
+  const { mutateAsync } = useMutation({
+    mutationFn: connectAccount,
+  });
 
   const handleLogout = async () => {
     await deleteCredentials();
@@ -37,10 +42,15 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    console.log("here", response);
+    const handleAccountConnection = async (code: string) => {
+      const credentials = await mutateAsync(code);
+      console.log(credentials.data);
+      return credentials.data;
+    };
+
     if (response?.type === "success") {
       const { code } = response.params;
-      console.log(code);
+      handleAccountConnection(code);
     }
   }, [response]);
 

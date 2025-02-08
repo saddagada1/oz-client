@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "oz-client",
+    "name": "oz",
     "slug": "oz-client",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "redhouse.studio.oz",
+    "scheme": "crafte.studio.oz",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -19,7 +19,7 @@
         "NSCameraUsageDescription": "oz needs access to your camera.",
         "NSMicrophoneUsageDescription": "oz needs access to your microphone."
       },
-      "bundleIdentifier": "com.redhouse.studio.oz"
+      "bundleIdentifier": "com.crafte.studio.oz"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +27,7 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": ["android.permission.CAMERA", "android.permission.RECORD_AUDIO"],
-      "package": "com.redhouse.studio.oz"
+      "package": "com.crafte.studio.oz"
     },
     "web": {
       "bundler": "metro",
